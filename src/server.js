@@ -4,7 +4,7 @@ const compression = require('compression');
 const zlib = require('node:zlib');
 // App and preferences
 const version = '1.1.1';
-const port = 8005;
+const port = 8015;
 const app = express();
 // Log server start
 console.log(`${(new Date()).toISOString()} | enjoy-the-moment.fr v${version} | Starting web server`);
