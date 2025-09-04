@@ -1,4 +1,4 @@
-# BandWebsite
+# enjoy-the-moment.fr
 
 ![](https://badgen.net/badge/version/1.1.1/blue)
 [![License](https://img.shields.io/github/license/MesseBasseProduction/BandWebsite.svg)](https://github.com/MesseBasseProduction/BandWebsite/blob/main/LICENSE)

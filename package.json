@@ -1,7 +1,7 @@
 {
-  "name": "bandwebsite",
+  "name": "enjoy-the-moment.fr",
   "version": "1.1.1",
-  "description": "A template to make a band or artist website ",
+  "description": "Enjoy The Moment band official website",
   "keywords": [],
   "main": "src/bw.js",
   "scripts": {
@@ -9,13 +9,13 @@
     "watch": "webpack --watch --config webpack/webpack.dev.js",
     "start": "http-server -p 1337 -c-1 -o index.html"
   },
-  "homepage": "https://github.com/MesseBasseProduction/BandWebsite/README.md",
+  "homepage": "https://github.com/MesseBasseProduction/enjoy-the-moment.fr/README.md",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MesseBasseProduction/BandWebsite.git"
+    "url": "git+https://github.com/MesseBasseProduction/enjoy-the-moment.fr.git"
   },
   "bugs": {
-    "url": "https://github.com/MesseBasseProduction/BandWebsite/issues"
+    "url": "https://github.com/MesseBasseProduction/enjoy-the-moment.fr/issues"
   },
   "author": "ArthurBeaulieu",
   "license": "GPL-3.0",

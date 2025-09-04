@@ -1,7 +1,7 @@
 FROM node:17-alpine
 
-RUN mkdir /band_website
-WORKDIR /band_website
+RUN mkdir /enjoy-the-moment.fr
+WORKDIR /enjoy-the-moment.fr
 
 RUN apk add --update --virtual .tmp-deps python3 make g++ && \
     rm -rf /var/cache/apk/*

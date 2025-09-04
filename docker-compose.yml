@@ -1,6 +1,6 @@
 services:
-  messe-basse-production:
-    container_name: band_website_node
+  enjoy-the-moment:
+    container_name: enjoy_the_moment_node
     build: .
     command: npm run start
     restart: always
