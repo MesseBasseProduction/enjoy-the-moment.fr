@@ -164,6 +164,14 @@ class BW {
         document.getElementById('releases').appendChild(container);
       }
     }
+    // Specific grid rules if under givent amount
+    if (this._band.releases.length === 1) {
+      document.getElementById('releases').style.gridTemplateColumns = '1fr';
+      document.getElementById('releases').style.maxWidth = '50%';
+    } else if (this._band.releases.length === 2) {
+      document.getElementById('releases').style.gridTemplateColumns = '1fr 1fr';
+      document.getElementById('releases').style.maxWidth = '50%';
+    }
     // Iterate through band members
     for (let i = 0; i < this._band.members.length; ++i) {
       const container = document.createElement('DIV');
@@ -173,7 +181,7 @@ class BW {
       const label = document.createElement('P');
       label.innerHTML = `
         ${this._band.members[i].fullName}
-        <span>© ${this._band.members[i].pictureCredit}</span>
+        <span>${(this._band.members[i].pictureCredit !== '') ? '© ' + this._band.members[i].pictureCredit : ''}</span>
         <span class="learn-more">${this._nls.learnMore}</span>
       `;
       container.addEventListener('click', this._artistModal.bind(this, this._band.members[i]));

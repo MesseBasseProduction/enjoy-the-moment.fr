@@ -1,10 +1,10 @@
 {
   "name": "Enjoy The Moment",
   "bio": {
-    "en": "<p>Enjoy The Moment is an alternative rock band that brings together five musicians from diverse backgrounds. Their music stands out with a unique energy, offering atmospheric soundscapes, complex structures, and more abrasive musical outbursts.</p><p>Drawing from the legacy of iconic bands such as Pink Floyd, Led Zeppelin, Primus, and Rage Against the Machine, the group shapes an original sound, blending raw intensity with emotional depth.</p><p>On stage as well as in the studio, Enjoy The Moment invites its audience on an immersive sonic journey, where each track becomes a unique experience.</p>",
-    "fr": "<p>Enjoy The Moment est un groupe de rock alternatif qui réunit cinq musiciens aux univers multiples. Leur musique se distingue par une énergie singulière, offrant des atmosphères planantes, des constructions complexes et des envolées musicales plus abrasives.</p><p>Puisant dans l'héritage de formations emblématiques telles que Pink Floyd, Led Zeppelin, Primus ou encore Rage Against the Machine, le groupe façonne un son original, à la croisée de l'intensité brute et de la profondeur émotionnelle.</p><p>Sur scène comme en studio, Enjoy The Moment invite son public à un voyage sonore immersif, où chaque morceau devient une expérience à part entière.</p>",
-    "de": "<p>Enjoy The Moment ist eine Alternative-Rock-Band, die fünf Musiker mit vielfältigen Hintergründen vereint. Ihre Musik zeichnet sich durch eine besondere Energie aus, mit sphärischen Klängen, komplexen Strukturen und kraftvolleren, raueren Ausbrüchen.</p><p>Aus dem Erbe legendärer Bands wie Pink Floyd, Led Zeppelin, Primus und Rage Against the Machine schöpfend, formt die Gruppe einen originellen Sound, der rohe Intensität mit emotionaler Tiefe verbindet.</p><p>Sowohl auf der Bühne als auch im Studio lädt Enjoy The Moment sein Publikum zu einer immersiven Klangreise ein, bei der jedes Stück zu einem einzigartigen Erlebnis wird.</p>",
-    "es": "<p>Enjoy The Moment es una banda de rock alternativo que reúne a cinco músicos de universos diversos. Su música se distingue por una energía singular, ofreciendo atmósferas envolventes, estructuras complejas y estallidos musicales más abrasivos.</p><p>Inspirándose en el legado de formaciones emblemáticas como Pink Floyd, Led Zeppelin, Primus o Rage Against the Machine, el grupo moldea un sonido original, en la encrucijada entre la intensidad cruda y la profundidad emocional.</p><p>Tanto en el escenario como en el estudio, Enjoy The Moment invita a su público a un viaje sonoro inmersivo, donde cada tema se convierte en una experiencia única.</p>"
+    "en": "<p>Enjoy The Moment is an alternative rock band that brings together five musicians from diverse backgrounds. Their music stands out with a unique energy, offering atmospheric soundscapes, complex structures, and more abrasive musical outbursts.</p><br><p>Drawing from the legacy of iconic bands such as Pink Floyd, Led Zeppelin, Primus, and Rage Against the Machine, the group shapes an original sound, blending raw intensity with emotional depth.</p><br><p>On stage as well as in the studio, Enjoy The Moment invites its audience on an immersive sonic journey, where each track becomes a unique experience.</p>",
+    "fr": "<p>Enjoy The Moment est un groupe de rock alternatif qui réunit cinq musiciens aux univers multiples. Leur musique se distingue par une énergie singulière, offrant des atmosphères planantes, des constructions complexes et des envolées musicales plus abrasives.</p><br><p>Puisant dans l'héritage de formations emblématiques telles que Pink Floyd, Led Zeppelin, Primus ou encore Rage Against the Machine, le groupe façonne un son original, à la croisée de l'intensité brute et de la profondeur émotionnelle.</p><br><p>Sur scène comme en studio, Enjoy The Moment invite son public à un voyage sonore immersif, où chaque morceau devient une expérience à part entière.</p>",
+    "de": "<p>Enjoy The Moment ist eine Alternative-Rock-Band, die fünf Musiker mit vielfältigen Hintergründen vereint. Ihre Musik zeichnet sich durch eine besondere Energie aus, mit sphärischen Klängen, komplexen Strukturen und kraftvolleren, raueren Ausbrüchen.</p><br><p>Aus dem Erbe legendärer Bands wie Pink Floyd, Led Zeppelin, Primus und Rage Against the Machine schöpfend, formt die Gruppe einen originellen Sound, der rohe Intensität mit emotionaler Tiefe verbindet.</p><br><p>Sowohl auf der Bühne als auch im Studio lädt Enjoy The Moment sein Publikum zu einer immersiven Klangreise ein, bei der jedes Stück zu einem einzigartigen Erlebnis wird.</p>",
+    "es": "<p>Enjoy The Moment es una banda de rock alternativo que reúne a cinco músicos de universos diversos. Su música se distingue por una energía singular, ofreciendo atmósferas envolventes, estructuras complejas y estallidos musicales más abrasivos.</p><br><p>Inspirándose en el legado de formaciones emblemáticas como Pink Floyd, Led Zeppelin, Primus o Rage Against the Machine, el grupo moldea un sonido original, en la encrucijada entre la intensidad cruda y la profundidad emocional.</p><br><p>Tanto en el escenario como en el estudio, Enjoy The Moment invita a su público a un viaje sonoro inmersivo, donde cada tema se convierte en una experiencia única.</p>"
   },
   "bandPicture": "Band.webp",
   "members": [
@@ -75,7 +75,7 @@
     {
       "title": "Enjoy The Moment",
       "artist": "Enjoy The Moment",
-      "cover": "EtM.webp",
+      "cover": "etm.webp",
       "audio": "EtMExtract.mp3",
       "date": "2025-09-08",
       "duration": "44:53",
@@ -180,10 +180,25 @@
     }, {
       "type": "image",
       "link": "./assets/img/artists/pic2.webp"
+    }, {
+      "type": "image",
+      "link": "./assets/img/artists/pic3.webp"
     }
   ],
   "links": [
     {
+      "type": "instagram",
+      "name": "Instagram",
+      "url": "https://www.instagram.com/enjoy_the_moment_label/"
+    }, {
+      "type": "facebook",
+      "name": "Facebook",
+      "url": "https://www.facebook.com/enjoythemomentmusic"
+    }, {
+      "type": "youtube",
+      "name": "YouTube",
+      "url": "https://www.youtube.com/@Enjoy-The-Moment-78"
+    }, {
       "type": "spotify",
       "name": "Spotify",
       "url": ""
@@ -222,8 +237,8 @@
     }
   ],
   "styles": {
-    "mainColor": "#D45656",
+    "mainColor": "#FEC449",
     "gradientStart": "#4A4444",
-    "gradientEnd": "#663F3F"
+    "gradientEnd": "#502513"
   }
 }

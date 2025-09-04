@@ -163,6 +163,7 @@ main.bio {
 
       &.learn-more {
         font-style: italic;
+        text-transform: inherit;
       }
 
       &:first-of-type {
