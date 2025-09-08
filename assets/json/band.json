@@ -85,19 +85,19 @@
       "links": [
         {
           "type": "spotify",
-          "url": ""
+          "url": "https://open.spotify.com/album/5HKRhCVVyQrQuKKm6G5WGg"
         }, {
           "type": "apple",
-          "url": ""
+          "url": "https://music.apple.com/us/album/enjoy-the-moment/1835518999"
         }, {
           "type": "amazon",
-          "url": ""
+          "url": "https://music.amazon.com/albums/B0FNN8ZXZC"
         }, {
           "type": "deezer",
-          "url": ""
+          "url": "https://www.deezer.com/album/810960591"
         }, {
           "type": "youtube",
-          "url": ""
+          "url": "https://www.youtube.com/watch?v=cQkbZ8wtCsM&list=PLp5D05IpZHwJLASTNkp19aXLTWaWGsOc1"
         }, {
           "type": "bandcamp",
           "url": "https://enjoythemoment.bandcamp.com/album/enjoy-the-moment"
@@ -106,16 +106,16 @@
       "moreLinks": [
         {
           "type": "tidal",
-          "url": ""
+          "url": "https://listen.tidal.com/album/456237177"
         }, {
           "type": "genius",
-          "url": ""
+          "url": "https://genius.com/albums/Enjoy-the-moment/Enjoy-the-moment"
         }, {
           "type": "discogs",
           "url": "https://www.discogs.com/release/34985984"
         }, {
           "type": "musicbrainz",
-          "url": ""
+          "url": "https://musicbrainz.org/release/fff49921-2b1e-4822-9569-e9843d472bf5"
         }
       ],
       "tracks": [
@@ -201,23 +201,23 @@
     }, {
       "type": "spotify",
       "name": "Spotify",
-      "url": ""
+      "url": "https://open.spotify.com/artist/22A1ywPhZcptvT8nSrodFq"
     }, {
       "type": "apple",
       "name": "Apple Music",        
-      "url": ""
+      "url": "https://music.apple.com/us/artist/enjoy-the-moment/1835517647"
     }, {
       "type": "deezer",
       "name": "Deezer",
-      "url": ""
+      "url": "https://www.deezer.com/artist/245474462"
     }, {
       "type": "amazon",
       "name": "Amazon Music",
-      "url": ""
+      "url": "https://music.amazon.com/artists/B0CPCDTK1F"
     }, {
       "type": "tidal",
       "name": "Tidal",
-      "url": ""
+      "url": "https://listen.tidal.com/artist/44206306"
     }, {
       "type": "bandcamp",
       "name": "Bandcamp",
@@ -225,15 +225,15 @@
     }, {
       "type": "discogs",
       "name": "Discogs",
-      "url": ""
+      "url": "https://www.discogs.com/artist/16624184-Enjoy-The-Moment"
     }, {
       "type": "genius",
       "name": "Genius",
-      "url": ""
+      "url": "https://genius.com/artists/Enjoy-the-moment"
     }, {
       "type": "musicbrainz",
       "name": "MusicBrainz",
-      "url": ""
+      "url": "https://musicbrainz.org/artist/eff94528-4d52-446b-9c31-474391676906"
     }
   ],
   "styles": {
