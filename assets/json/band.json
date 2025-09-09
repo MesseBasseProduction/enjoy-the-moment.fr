@@ -223,6 +223,10 @@
       "name": "Bandcamp",
       "url": "https://enjoythemoment.bandcamp.com/"
     }, {
+      "type": "soundcloud",
+      "name": "Soundcloud",
+      "url": "https://soundcloud.com/enjoy-the-moment-78"
+    }, {
       "type": "discogs",
       "name": "Discogs",
       "url": "https://www.discogs.com/artist/16624184-Enjoy-The-Moment"
