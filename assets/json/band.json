@@ -215,6 +215,10 @@
       "name": "Amazon Music",
       "url": "https://music.amazon.com/artists/B0CPCDTK1F"
     }, {
+      "type": "qobuz",
+      "name": "Qobuz",
+      "url": "https://www.qobuz.com/fr-fr/interpreter/enjoy-the-moment/20693706"
+    }, {
       "type": "tidal",
       "name": "Tidal",
       "url": "https://listen.tidal.com/artist/44206306"
