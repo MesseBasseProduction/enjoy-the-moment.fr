@@ -175,6 +175,10 @@
   ],
   "medias": [
     {
+      "type": "iframe",
+      "title": "We Are Enjoy The Moment",
+      "link": "https://tube.mycozy.space/videos/embed/msC5rCbFd7RfcDNS4gqWWA"
+    }, {
       "type": "image",
       "link": "./assets/img/artists/pic1.webp"
     }, {
