@@ -44,18 +44,21 @@
 </head>
 <body data-type="index">
 <div id="content-wrapper" class="content-wrapper">
-  <main class="bio">
+  <main class="homepage">
     <nav>
       <div class="nav-content">
         <img src="#" id="band-picture" class="band-picture" alt="band-picture">
         <h1 id="band-name"></h1>
         <h2 id="band-desc"></h2>
         <div class="links">
-          <a href="./listen.html" id="listen-link" alt="listen-band"></a>
-          <a href="./tree.html" id="tree-link" alt="find-band-online"></a>
+          <a href="/listen" id="listen-link" alt="listen-band"></a>
+          <a href="/events" id="events-link" alt="band-events"></a>
+          <a href="/tree" id="tree-link" alt="find-band-online"></a>
         </div>
       </div>
     </nav>
+    <h3 id="events-section"></h3>
+    <section id="events" class="events"></section>
     <h3 id="works-section"></h3>
     <section id="releases"></section>
     <h3 id="musicians-section"></h3>
@@ -75,6 +78,7 @@
   <option value="fr"></option>
   <option value="es"></option>
   <option value="de"></option>
+  <option value="it"></option>
 </select>
 <div id="modal-overlay" class="modal-overlay"></div>
 <div id="loading-overlay" class="loading-overlay"></div>

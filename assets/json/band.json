@@ -71,6 +71,49 @@
     }
   ],
   "pastMembers": [],
+  "events": [
+    {
+      "title": "Enjoy The Moment @Meeple",
+      "picture": "MBPEVT028.webp",
+      "date": "2026-01-24",
+      "place": "Meeple, Maurepas",
+      "url": "https://www.facebook.com/events/1356385606136696",
+      "description": {
+        "fr": "<p>Enjoy The Moment se met à votre service pour enflammer le Meeple Bar, et vous proposer un concert qui réchauffera les jambes et les cœurs! Cinq musiciens, une passion commune : faire vibrer l'instant 🎸🔥</p>",
+        "en": "<p>Enjoy The Moment is at your service to set the Meeple Bar on fire and bring you a concert that will warm both your legs and your heart! Five musicians, one shared passion: making every moment vibrate 🎸🔥</p>"
+      }    
+    }, {
+      "title": "Éphémère'n'Roll",
+      "picture": "MBPEVT027.webp",
+      "date": "2026-01-17",
+      "place": "Le Tremplin, Châteaufort",
+      "url": "https://www.facebook.com/events/748947891514829",
+      "description": {
+        "fr": "<p>Un jour. Sept groupes. Des riffs, des rires et des rencontres. Le 17 janvier 2026, Châteaufort devient la capitale du gros son le temps d'une journée. Bienvenue à Éphémère'n'Roll — là où la musique vit, le temps d'un instant.</p>",
+        "en": "<p>One day. Seven bands. Riffs, laughter, and new connections. On January 17, 2026, Châteaufort becomes the capital of heavy sound for a single day. Welcome to Éphémère'n'Roll — where music comes alive, if only for a moment.</p>"
+      }    
+    }, {
+      "title": "Concert de Noël!",
+      "picture": "2025-12-13.webp",
+      "date": "2025-12-13",
+      "place": "Case Ô Arts, Saint-Cyr-l'École",
+      "url": "https://www.facebook.com/events/1845920809395904",
+      "description": {
+        "fr": "<p>Un concert de Noël en co-plateau avec le Ctesibius Crew dans une chouette petite salle de spectacle ; le Case Ô Arts. Venez chanter Noël avec nous le 13 décembre !</p>",
+        "en": "<p>A Christmas concert sharing the stage with the Ctesibius Crew in a lovely little performance venue, the Case Ô Arts. Come sing Christmas with us on December 13th!</p>"
+      }    
+    }, {
+      "title": "A.R.N. Messengers // Enjoy The Moment à la Péniche Antipode",
+      "picture": "MBPEVT025.webp",
+      "date": "2025-11-30",
+      "place": "Péniche Antipode - Paris",
+      "url": "https://www.facebook.com/events/1337424548089295",
+      "description": {
+        "fr": "<p>Le trio A.R.N. Messengers et le quintet rock Enjoy The Moment investissent la scène de la Péniche Antipode à Paris pour une après-midi à la croisée du Jazz Fusion, du Rock Progressif et du Hard Rock. Ce concert est l'occasion de profiter d'un dimanche où le cadre et la musique s'uniront à merveille pour offrir un moment chaleureux, convivial et inoubliable.</p>",
+        "en": "<p>The trio A.R.N. Messengers and the rock quintet Enjoy The Moment take over the stage of the Péniche Antipode in Paris for an afternoon at the crossroads of Jazz Fusion, Progressive Rock, and Hard Rock. This concert is the perfect opportunity to enjoy a Sunday where the setting and the music will come together beautifully to offer a warm, friendly, and unforgettable moment.</p>"
+      }    
+    }
+  ],
   "releases": [
     {
       "title": "Enjoy The Moment",

@@ -2,16 +2,23 @@
   "roles": {
     "leadvocals": "Voces Principales",
     "backvocals": "Coro",
-    "guitar": "GitarreGuitarra",
+    "guitar": "Gitarra",
+    "saxophone": "Saxófono",
+    "trumpet": "Trompeta",
+    "trombone": "Trombón",
     "keyboard": "Teclado",
     "bass": "Bajo",
     "doublebass": "Contrabajo",
+    "percussion": "Percusión",
     "drums": "Batería"
   },
+  "eventsLink": "Míranos en vivo",
   "listenLink": "Ver la discografia",
   "treeLink": "Encuéntrenos en línea",
-  "musicians": "Los Músicos",
+  "events": "Próximos eventos",
+  "pastEvents": "Eventos pasados",
   "works": "Las Obras",
+  "musicians": "Los Músicos",
   "medias": "Medios",
   "pastMembers": "Miembros anteriores",
   "listenOnline": "Escuche en línea",
@@ -28,6 +35,7 @@
     "en": "🇬🇧 Inglés",
     "fr": "🇫🇷 Francés",
     "es": "🇪🇸 Español",
-    "de": "🇩🇪 Alemán"
+    "de": "🇩🇪 Alemán",
+    "it": "🇮🇹 Italiano"
   }
 }

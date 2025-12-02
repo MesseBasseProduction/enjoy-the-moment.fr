@@ -2,6 +2,8 @@ import { Color, Solver } from './js/FilterGenerator.js';
 import './bw.scss';
 
 
+const APP_VERSION = '1.2.1';
+const APP_NAME = 'enjoy-the-moment.fr';
 const DEBUG = false;
 
 
@@ -11,26 +13,24 @@ class BW {
   constructor() {
     this._lang = localStorage.getItem('website-lang');
     if (this._lang === null) {
-      this._lang = (['fr', 'es', 'de', 'en'].indexOf(navigator.language.substring(0, 2)) !== -1) ? navigator.language.substring(0, 2) : 'en';
+      this._lang = (['fr', 'es', 'de', 'en', 'it'].indexOf(navigator.language.substring(0, 2)) !== -1) ? navigator.language.substring(0, 2) : 'en';
       localStorage.setItem('website-lang', this._lang);
     }
     this._nls = null;
     this._band = null;
     this._mainScroll = null;
-    this._version = '1.1.1';
 
-    if (DEBUG === true) { console.log(`BandWebsite v${this._version} : Begin website initialization`); }
-
+    if (DEBUG === true) { console.log(`${APP_NAME} v${APP_VERSION} : Begin website initialization`); }
     this._initLang()
       .then(this._fetchBandInfo.bind(this))
       .then(this._init.bind(this))
       .then(this._buildPage.bind(this))
       .then(this._events.bind(this))
       .catch(err => { // Error are displayed even if DEBUG is set to false, to notify end user to contact support
-        console.error(`BandWebsite v${this._version} : Fatal error during initialization, please contact support :\n`, err);
+        console.error(`${APP_NAME} v${APP_VERSION} : Fatal error during initialization, please contact support :\n`, err);
       })
       .finally(() => {
-        if (DEBUG === true) { console.log(`BandWebsite v${this._version} : Website initialization done`); }
+        if (DEBUG === true) { console.log(`${APP_NAME} v${APP_VERSION} : Website initialization done`); }
       });
   }
 
@@ -116,6 +116,8 @@ class BW {
     return new Promise((resolve, reject) => {
       if (document.body.dataset.type === 'index') {
         this._buildIndexPage();
+      } else if (document.body.dataset.type === 'events') {
+        this._buildEventsPage();
       } else if (document.body.dataset.type === 'listen') {
         this._buildListenPage();
       } else if (document.body.dataset.type === 'tree') {
@@ -131,64 +133,104 @@ class BW {
 
   _buildIndexPage() {
     if (DEBUG === true) { console.log(`6. Init website with the artist main page`); }
+
+    // Page specific nls
     document.querySelector('#band-name').innerHTML = this._band.name;
     document.querySelector('#band-picture').src = `./assets/img/artists/${this._band.bandPicture}`;
-    document.querySelector('#band-desc').innerHTML = this._band.bio[this._lang];
+    document.querySelector('#band-desc').innerHTML = this.applyLangOnAsset(this._band.bio);
     document.querySelector('#listen-link').innerHTML = `<img src="./assets/img/controls/disc.svg" alt="listen">${this._nls.listenLink}`;
+    document.querySelector('#events-link').innerHTML = `<img src="./assets/img/controls/mic.svg" alt="events">${this._nls.eventsLink}`;
     document.querySelector('#tree-link').innerHTML = `<img src="./assets/img/controls/find.svg" alt="listen">${this._nls.treeLink}`;
-    document.querySelector('#musicians-section').innerHTML = this._nls.musicians;
     document.querySelector('#works-section').innerHTML = this._nls.works;
+    document.querySelector('#musicians-section').innerHTML = this._nls.musicians;
     document.querySelector('#medias-section').innerHTML = this._nls.medias;
     document.querySelector('#current-year').innerHTML = new Date().getFullYear();
-    // Iterate band release to build albums
-    for (let i = 0; i < this._band.releases.length; ++i) {
-      if (this._band.releases[i].showOnMainPage === true) {
-        const container = document.createElement('DIV');
-        container.dataset.url = this._getReleaseLink(this._band.releases[i].links);
-        const picture = document.createElement('IMG');
-        picture.src = `./assets/img/releases/${this._band.releases[i].cover}`;
-        const date = new Intl.DateTimeFormat(this._lang, {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        }).format(new Date(this._band.releases[i].date));
-        const label = document.createElement('P');
-        label.innerHTML = `
-          ${this._band.releases[i].title}
-          <span>${this._band.releases[i].artist}</span>
-          <span>${date}</span>
-        `;
-        container.addEventListener('click', this._openReleaseVideo.bind(this, container.dataset.url));
-        container.appendChild(picture);
-        container.appendChild(label);
-        document.getElementById('releases').appendChild(container);
+
+    // Upcoming events only
+    if (this._band.events.length > 0 && this._hasUpcomingEvents() === true) {
+      document.querySelector('#events-section').innerHTML = this._nls.events;
+      // Iterate event to only display upcoming ones
+      let now = new Date();
+      now = now.toISOString().split('T')[0];
+      for (let i = this._band.events.length - 1; i >= 0; --i) {
+        if (this._band.events[i].date >= now) {
+          const container = document.createElement('DIV');
+          const picture = document.createElement('IMG');
+          picture.src = `./assets/img/events/${this._band.events[i].picture}`;
+          const label = document.createElement('P');
+          label.innerHTML = `
+            ${this._band.events[i].title}
+            <span>${this.formatDate(this._band.events[i].date, this._lang)} – ${this._band.events[i].place}</span>
+          `;
+          container.appendChild(picture);
+          container.appendChild(label);
+          container.addEventListener('click', this._openUrl.bind(this, this._band.events[i].url));
+          document.getElementById('events').appendChild(container);
+        }
+      }
+    } else {
+      document.querySelector('#events-section').parentNode.removeChild(document.querySelector('#events-section'));
+      document.querySelector('#events').parentNode.removeChild(document.querySelector('#events'));
+      if (this._band.events.length === 0) {
+        document.querySelector('#events-link').parentNode.removeChild(document.querySelector('#events-link'));
       }
     }
-    // Specific grid rules if under givent amount
-    if (this._band.releases.length === 1) {
-      document.getElementById('releases').style.gridTemplateColumns = '1fr';
-      document.getElementById('releases').style.maxWidth = '50%';
-    } else if (this._band.releases.length === 2) {
-      document.getElementById('releases').style.gridTemplateColumns = '1fr 1fr';
-      document.getElementById('releases').style.maxWidth = '50%';
+
+    if (this._band.releases.length > 0) {
+      // Iterate band release to build albums
+      for (let i = 0; i < this._band.releases.length; ++i) {
+        if (this._band.releases[i].showOnMainPage === true) {
+          const container = document.createElement('DIV');
+          container.dataset.url = this._getReleaseLink(this._band.releases[i].links);
+          const picture = document.createElement('IMG');
+          picture.src = `./assets/img/releases/${this._band.releases[i].cover}`;
+          const date = new Intl.DateTimeFormat(this._lang, {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          }).format(new Date(this._band.releases[i].date));
+          const label = document.createElement('P');
+          label.innerHTML = `
+            ${this._band.releases[i].title}
+            <span>${this._band.releases[i].artist}</span>
+            <span>${date}</span>
+          `;
+          container.addEventListener('click', this._openUrl.bind(this, container.dataset.url));
+          container.appendChild(picture);
+          container.appendChild(label);
+          document.getElementById('releases').appendChild(container);
+        }
+      }
+    } else {
+      document.querySelector('#works-section').parentNode.removeChild(document.querySelector('#works-section'));
+      document.querySelector('#releases').parentNode.removeChild(document.querySelector('#releases'));
+      document.querySelector('#listen-link').parentNode.removeChild(document.querySelector('#listen-link'));
     }
-    // Iterate through band members
-    for (let i = 0; i < this._band.members.length; ++i) {
-      const container = document.createElement('DIV');
-      container.dataset.artist = this._band.members[i].fullName;
-      const picture = document.createElement('IMG');
-      picture.src = `./assets/img/artists/${this._band.members[i].picture}`;
-      const label = document.createElement('P');
-      label.innerHTML = `
-        ${this._band.members[i].fullName}
-        <span>${(this._band.members[i].pictureCredit !== '') ? '© ' + this._band.members[i].pictureCredit : ''}</span>
-        <span class="learn-more">${this._nls.learnMore}</span>
-      `;
-      container.addEventListener('click', this._artistModal.bind(this, this._band.members[i]));
-      container.appendChild(picture);
-      container.appendChild(label);
-      document.getElementById('artists').appendChild(container);
+
+    if (this._band.members.length > 0) {
+      // Iterate through band members
+      for (let i = 0; i < this._band.members.length; ++i) {
+        const container = document.createElement('DIV');
+        container.dataset.artist = this._band.members[i].fullName;
+        const picture = document.createElement('IMG');
+        picture.src = `./assets/img/artists/${this._band.members[i].picture}`;
+        const label = document.createElement('P');
+        label.innerHTML = `
+          ${this._band.members[i].fullName}
+          <span>${(this._band.members[i].pictureCredit !== '') ? '© ' + this._band.members[i].pictureCredit : ''}</span>
+          <span class="learn-more">${this._nls.learnMore}</span>
+        `;
+        container.addEventListener('click', this._artistModal.bind(this, this._band.members[i]));
+        container.appendChild(picture);
+        container.appendChild(label);
+        document.getElementById('artists').appendChild(container);
+      }
+    } else {
+      document.querySelector('#works-section').parentNode.removeChild(document.querySelector('#works-section'));
+      document.querySelector('#releases').parentNode.removeChild(document.querySelector('#releases'));
+      document.querySelector('#listen-link').parentNode.removeChild(document.querySelector('#listen-link'));
     }
+
     // Iterate through past band members if any
     if (this._band.pastMembers.length > 0) {
       const container = document.createElement('DIV');
@@ -202,22 +244,107 @@ class BW {
       container.appendChild(label);
       document.getElementById('artists').appendChild(container);
     }
-    // Iterate through band's medias
-    for (let i = 0; i < this._band.medias.length; ++i) {
-      let container = null;
-      if (this._band.medias[i].type === 'iframe') {
-        container = document.createElement('IFRAME');
-        container.title = this._band.medias[i].title;
-        container.src = this._band.medias[i].link;
-        container.setAttribute('sandbox', 'allow-same-origin allow-scripts allow-popups');
-        container.setAttribute('frameborder', '0');
-        container.setAttribute('allowfullscreen', '1');
-      } else if (this._band.medias[i].type === 'image') {
-        container = document.createElement('IMG');
-        container.src = this._band.medias[i].link;
+
+    if (this._band.medias.length > 0) {
+      // Iterate through band's medias
+      for (let i = 0; i < this._band.medias.length; ++i) {
+        let container = null;
+        if (this._band.medias[i].type === 'iframe') {
+          container = document.createElement('IFRAME');
+          container.title = this._band.medias[i].title;
+          container.src = this._band.medias[i].link;
+          container.setAttribute('sandbox', 'allow-same-origin allow-scripts allow-popups');
+          container.setAttribute('frameborder', '0');
+          container.setAttribute('allowfullscreen', '1');
+        } else if (this._band.medias[i].type === 'image') {
+          container = document.createElement('IMG');
+          container.src = this._band.medias[i].link;
+        }
+        document.getElementById('medias').appendChild(container);
       }
-      document.getElementById('medias').appendChild(container);
+    } else {
+      document.querySelector('#medias-section').parentNode.removeChild(document.querySelector('#medias-section'));
+      document.querySelector('#medias').parentNode.removeChild(document.querySelector('#medias'));
     }
+
+    if (this._band.links.length === 0) {
+      document.querySelector('#tree-link').parentNode.removeChild(document.querySelector('#tree-link'));
+    }
+
+    // Now build page scroll
+    this._mainScroll = new window.ScrollBar({
+      target: document.getElementById('content-wrapper'),
+      minSize: 200,
+      style: {
+        color: this._band.styles.mainColor
+      }
+    });
+    // Hide loading overlay
+    document.getElementById('loading-overlay').style.opacity = '0';
+    // Force render after scroll creation to make scrollbar properly resized to content
+    setTimeout(() => {
+      this._mainScroll.updateScrollbar();
+    }, 200);
+    // Display none on loading overlay when animation fade out is finished
+    setTimeout(() => {
+      document.getElementById('loading-overlay').style.display = 'none';
+    }, 1200);
+  }
+
+
+  _buildEventsPage() {
+    if (DEBUG === true) { console.log(`6. Init website with the artist event page`); }
+
+    // In case no event, redirect to index
+    if (this._band.events.length === 0) {
+      window.location = '/';
+    }
+
+    // Page specific nls
+    document.querySelector('#upcoming-section').innerHTML = this._nls.events;
+    document.querySelector('#past-section').innerHTML = this._nls.pastEvents;
+
+    let now = new Date();
+    now = now.toISOString().split('T')[0];
+    let upcoming = 0;
+    let past = 0;
+    for (let i = this._band.events.length - 1; i >= 0; --i) {
+      let target = null;
+      if (this._band.events[i].date >= now) {
+        ++upcoming;
+        target = document.getElementById('upcoming-events');
+      } else {
+        ++past;
+        target = document.getElementById('past-events');
+      }
+
+      const container = document.createElement('DIV');
+      const picture = document.createElement('IMG');
+      picture.src = `./assets/img/events/${this._band.events[i].picture}`;
+      const label = document.createElement('P');
+      label.innerHTML = `
+        <br>
+        <h2>${this._band.events[i].title}</h2>
+        <span><i>${this.formatDate(this._band.events[i].date, this._lang)} – ${this._band.events[i].place}</i></span>
+        <br><br>
+        <span style="text-align:justify;text-indent:var(--spacing)">${this.applyLangOnAsset(this._band.events[i].description)}</span>
+      `;
+      container.appendChild(picture);
+      container.appendChild(label);
+      container.addEventListener('click', this._openUrl.bind(this, this._band.events[i].url));
+      target.appendChild(container);
+    }
+
+    if (upcoming === 0) {
+      document.querySelector('#upcoming-section').parentNode.removeChild(document.querySelector('#upcoming-section'));
+      document.querySelector('#upcoming-events').parentNode.removeChild(document.querySelector('#upcoming-events'));
+    }
+
+    if (past === 0) {
+      document.querySelector('#past-section').parentNode.removeChild(document.querySelector('#past-section'));
+      document.querySelector('#past-events').parentNode.removeChild(document.querySelector('#past-events'));
+    }
+
     // Now build page scroll
     this._mainScroll = new window.ScrollBar({
       target: document.getElementById('content-wrapper'),
@@ -241,11 +368,18 @@ class BW {
 
   _buildListenPage() {
     if (DEBUG === true) { console.log(`6. Init website with the artist listen page`); }
-    // Update page nls
+
+    // In case no releases, redirect to index
+    if (this._band.releases.length === 0) {
+      window.location = '/';
+    }
+
+    // Page specific nls
     document.querySelector('#release-from').innerHTML = this._nls.from;
     document.querySelector('#listen-online').innerHTML = this._nls.listenOnline;
     document.querySelector('#see-more-links').innerHTML = this._nls.seeMore;
     document.querySelector('#published-on').innerHTML = this._nls.publishedOn;
+
     // Internal useful variables
     const progress = document.getElementById('current-progress');
     const overlay = document.getElementById('modal-overlay');
@@ -348,6 +482,7 @@ class BW {
         }
       });
     };
+    
     // Previous and next release event handling if more than one release
     if (this._band.releases.length === 1) {
       document.getElementById('release-previous').style.display = 'none';
@@ -387,9 +522,10 @@ class BW {
         document.getElementById('release-pager').style.fontSize = `${(20 / this._band.releases.length) % 5.5}rem`;
       }
     }
+
     // Open modal event
     document.getElementById('see-more-links').addEventListener('click', () => {
-      fetch('assets/html/seemoremodal.html').then(data => {
+      fetch('assets/html/modal/seemoremodal.html').then(data => {
         overlay.style.display = 'flex';
         data.text().then(htmlString => {
           overlay.appendChild(document.createRange().createContextualFragment(htmlString));
@@ -420,6 +556,12 @@ class BW {
 
   _buildTreePage() {
     if (DEBUG === true) { console.log(`6. Init website with the artist link tree`); }
+
+    // In case no links, redirect to index
+    if (this._band.links.length === 0) {
+      window.location = '/';
+    }
+
     // Iterate over link to create link content
     for (let i = 0; i < this._band.links.length; ++i) {
       document.querySelector('#link-container').innerHTML += `
@@ -429,6 +571,7 @@ class BW {
       </a>
       `;
     }
+
     this._mainScroll = new window.ScrollBar({
       target: document.getElementById('link-wrapper'),
       style: {
@@ -457,10 +600,23 @@ class BW {
   // Utils for main page
 
 
+  _hasUpcomingEvents() {
+    let now = new Date();
+    now = now.toISOString().split('T')[0];
+    for (let i = 0; i < this._band.events.length; ++i) {
+      if (this._band.events[i].date >= now) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+
   _artistModal(artist) {
     const overlay = document.getElementById('modal-overlay');
     // Open modal event
-    fetch(`assets/html/biomodal.html`).then(data => {
+    fetch(`assets/html/modal/biomodal.html`).then(data => {
       overlay.style.display = 'flex';
       data.text().then(htmlString => {
         const container = document.createRange().createContextualFragment(htmlString);
@@ -472,8 +628,12 @@ class BW {
             container.querySelector('#artist-roles').innerHTML += ', ';
           }
         }
-        container.querySelector('#artist-roles').innerHTML += ` ${this._nls.since} ${artist.range.split('-')[0]}`;
-        container.querySelector('#artist-bio').innerHTML = artist.bio[this._lang];
+
+        if (artist.range.length > 0) {
+          container.querySelector('#artist-roles').innerHTML += ` ${this._nls.since} ${artist.range.split('-')[0]}`;
+        }
+
+        container.querySelector('#artist-bio').innerHTML = this.applyLangOnAsset(artist.bio);
         container.querySelector('#close-modal-button').innerHTML = this._nls.close;
         overlay.appendChild(container);
         requestAnimationFrame(() => overlay.style.opacity = 1);
@@ -485,7 +645,7 @@ class BW {
   _pastMembersModal(pastMembers) {
     const overlay = document.getElementById('modal-overlay');
     // Open modal event
-    fetch(`assets/html/pastmembersmodal.html`).then(data => {
+    fetch(`assets/html/modal/pastmembersmodal.html`).then(data => {
       overlay.style.display = 'flex';
       data.text().then(htmlString => {
         const container = document.createRange().createContextualFragment(htmlString);
@@ -506,7 +666,7 @@ class BW {
           <div><img src="./assets/img/artists/${pastMembers[i].picture}"><i>© ${pastMembers[i].pictureCredit}</i></div>
           <div class="past-member-infos">
             <span><h3>${pastMembers[i].fullName}</h3> – <i>${roles}</i></span>
-            <p>${pastMembers[i].bio[this._lang]}</p>
+            <p>${this.applyLangOnAsset(pastMembers[i].bio)}</p>
           </div>
           `;
           artistsContainer.appendChild(member);
@@ -565,7 +725,7 @@ class BW {
   }
 
 
-  _openReleaseVideo(url) {
+  _openUrl(url) {
     window.open(url, '_blank').focus();
   }
 
@@ -586,6 +746,36 @@ class BW {
       dom += `</p>`;
     }
     return dom;
+  }
+
+
+  // Global Utils
+
+
+  applyLangOnAsset(asset) {
+    if (asset[this._lang]) {
+      return asset[this._lang];
+    } else {
+      const keys = Object.keys(asset);
+      return asset[keys[0]];
+    }
+  }
+
+
+  formatDate(date, lang) {
+    const dateObj = new Date(date);
+    const formatter = new Intl.DateTimeFormat(lang, { month: 'long' });
+    const month = formatter.format(dateObj);
+    if (lang === 'en') {
+      return `${month} ${dateObj.getDate()}, ${dateObj.getFullYear()}`;
+    } else {
+      return `${dateObj.getDate()} ${this.capitalizeFirstLetter(month)} ${dateObj.getFullYear()}`;
+    }
+  }
+
+
+  capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
 

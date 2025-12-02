@@ -3,15 +3,22 @@
     "leadvocals": "Lead Singer",
     "backvocals": "Back Vocals",
     "guitar": "Guitar",
+    "saxophone": "Saxophone",
+    "trumpet": "Trumpet",
+    "trombone": "Trombone",
     "keyboard": "Keyboard",
     "bass": "Bass",
     "doublebass": "Double Bass",
+    "percussion": "Percussion",
     "drums": "Drums"
   },
+  "eventsLink": "See us live",
   "listenLink": "Check the discography",
   "treeLink": "Find us online",
-  "musicians": "Musicians",
+  "events": "Upcoming events",
+  "pastEvents": "Past events",
   "works": "Pieces",
+  "musicians": "Musicians",
   "medias": "Medias",
   "learnMore": "Click to read more",
   "pastMembers": "Past members",
@@ -28,6 +35,7 @@
     "en": "🇬🇧 English",
     "fr": "🇫🇷 French",
     "es": "🇪🇸 Spanish",
-    "de": "🇩🇪 German"
+    "de": "🇩🇪 German",
+    "it": "🇮🇹 Italian"
   }
 }
